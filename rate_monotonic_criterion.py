@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Fri Nov  9 18:39:55 2018
+
 @author: Madhu
 """
 
@@ -99,25 +100,22 @@ for q in range(total_cc):
 axx.append(total_cc)
 
 #Initialising the bar plots
-p1 = plt.bar(xax, trace[0], align='edge', width = 1)
-p2 = plt.bar(xax, trace[1], bottom=1, align='edge', width = 1)
-p3 = plt.bar(xax, trace[2], bottom=2, align='edge', width = 1)
-p4 = plt.bar(xax, trace[3], bottom=3, align='edge', width = 1)
+ynos = []
+ylabels = ['Tasks']
+ylegend = []
+
+for i in range(n):
+    plt.bar(xax, trace[i], bottom = i, align='edge', width = 1)
+    ynos.append(i)
+    ylabels.append('Task ' + str(i+1))
+    ylegend.append('Task ' + str(i+1))
+    
+ynos.append(i+1)
 
 plt.xticks(axx)
-plt.yticks((0,1,2,3,4), ('Tasks', 'Task 1', 'Task 2', 'Task 3', 'Task 4'))
-plt.legend(('Task 1', 'Task 2', 'Task 3', 'Task 4'))
+plt.yticks(ynos, ylabels)
+plt.legend(ylegend)
     
 plt.grid()        
 plt.show()
 
-#plt.plot(xax, trace[0], xax, trace[1], xax, trace[2])
-#plt.bar(xax, trace[0], tick_label = xax, edgecolor = 'g')
-    
-#for i in range(n):
-#    print('')
-#    for j in range(total_cc):
-#        if trace[i][j] == 1:
-#            print('-', end = " ")
-#        else:
-#            print('_', end = " ")
