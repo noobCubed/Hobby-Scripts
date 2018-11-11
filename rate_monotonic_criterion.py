@@ -61,6 +61,7 @@ for j in range(len(periodicity)):
         ready.append(j+1)
 
 #Performing the Scheduling task
+#Updating the Ready Queue
 for i in range(total_cc):
     if i>2:
         for j in range(len(periodicity)):
@@ -68,7 +69,7 @@ for i in range(total_cc):
                 if (j+1) not in ready:
                     for k in range(dict_exec_times[j+1]):
                         ready.append(j+1)
-    
+    #Getting the task with highest priority from the Ready Queue
     highest=n+1
     if(ready):
         for j in ready:
@@ -77,8 +78,43 @@ for i in range(total_cc):
     else:
         continue
     
+    #Setting the respective task for execution and removing it from the ready queue
     for task, priority in dict_priorities.items():
         if priority == highest:
             executed_task = task
             trace[task-1][i] = 1
-ready.remove(task)
+            ready.remove(task)
+            
+#Printing the execution trace
+import matplotlib.pyplot as plt
+
+#Setting the x axis
+xax=[]
+axx=[]
+for q in range(30):
+    xax.append(q)
+    axx.append(q)
+axx.append(30)
+
+#Initialising the bar plots
+p1 = plt.bar(xax, trace[0], align='edge', width = 1)
+p2 = plt.bar(xax, trace[1], bottom=1, align='edge', width = 1)
+p3 = plt.bar(xax, trace[2], bottom=2, align='edge', width = 1)
+
+plt.xticks(axx)
+plt.yticks((0,1,2,3), ('Tasks', 'Task 1', 'Task 2', 'Task 3'))
+plt.legend(('Task 1', 'Task 2', 'Task 3'))
+    
+plt.grid()        
+plt.show()
+
+#plt.plot(xax, trace[0], xax, trace[1], xax, trace[2])
+#plt.bar(xax, trace[0], tick_label = xax, edgecolor = 'g')
+    
+#for i in range(n):
+#    print('')
+#    for j in range(total_cc):
+#        if trace[i][j] == 1:
+#            print('-', end = " ")
+#        else:
+#            print('_', end = " ")
