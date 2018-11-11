@@ -16,7 +16,7 @@ rm_criterion = n*(pow(2,1/n)-1)
 exec_times = []
 periodicity = []
 cpu_utilization = 0
-priorities = []
+priorities = [0]*n
 ready = []
 
 #Getting the inputs of execution times and periodicities
@@ -44,11 +44,13 @@ else:
 
 #Making a list of tasks ordered from highest priority to lowest    
 test = periodicity.copy()
+count = 1
 
 while(test):
     mini = min(test)
     test.remove(mini)
-    priorities.append(periodicity.index(mini)+1)
+    priorities[periodicity.index(mini)]=count
+    count+=1
 
 #Creating dictionaries of priorities and execution times matched with tasks
 tasks = list(i for i in range(1,n+1))
@@ -91,19 +93,20 @@ import matplotlib.pyplot as plt
 #Setting the x axis
 xax=[]
 axx=[]
-for q in range(30):
+for q in range(total_cc):
     xax.append(q)
     axx.append(q)
-axx.append(30)
+axx.append(total_cc)
 
 #Initialising the bar plots
 p1 = plt.bar(xax, trace[0], align='edge', width = 1)
 p2 = plt.bar(xax, trace[1], bottom=1, align='edge', width = 1)
 p3 = plt.bar(xax, trace[2], bottom=2, align='edge', width = 1)
+p4 = plt.bar(xax, trace[3], bottom=3, align='edge', width = 1)
 
 plt.xticks(axx)
-plt.yticks((0,1,2,3), ('Tasks', 'Task 1', 'Task 2', 'Task 3'))
-plt.legend(('Task 1', 'Task 2', 'Task 3'))
+plt.yticks((0,1,2,3,4), ('Tasks', 'Task 1', 'Task 2', 'Task 3', 'Task 4'))
+plt.legend(('Task 1', 'Task 2', 'Task 3', 'Task 4'))
     
 plt.grid()        
 plt.show()
